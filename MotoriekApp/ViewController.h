@@ -10,4 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *movingView;
+
+- (IBAction)startMotionDetection:(id)sender;
+- (IBAction)stopMotionDetection:(id)sender;
+
 @end

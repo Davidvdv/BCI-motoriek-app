@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63096BE7171D305D00E56D25 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63096BE5171D2FCC00E56D25 /* CoreMotion.framework */; };
 		63595271171C104B005913DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595270171C104B005913DC /* UIKit.framework */; };
 		63595273171C104B005913DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595272171C104B005913DC /* Foundation.framework */; };
 		63595275171C104B005913DC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595274171C104B005913DC /* CoreGraphics.framework */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63096BE5171D2FCC00E56D25 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		6359526D171C104B005913DC /* MotoriekApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotoriekApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63595270171C104B005913DC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63595272171C104B005913DC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63096BE7171D305D00E56D25 /* CoreMotion.framework in Frameworks */,
 				63595271171C104B005913DC /* UIKit.framework in Frameworks */,
 				63595273171C104B005913DC /* Foundation.framework in Frameworks */,
 				63595275171C104B005913DC /* CoreGraphics.framework in Frameworks */,
@@ -73,6 +76,7 @@
 		6359526F171C104B005913DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63096BE5171D2FCC00E56D25 /* CoreMotion.framework */,
 				63595270171C104B005913DC /* UIKit.framework */,
 				63595272171C104B005913DC /* Foundation.framework */,
 				63595274171C104B005913DC /* CoreGraphics.framework */,
@@ -213,6 +217,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: David van de Vondervoort (794PJ6XW4E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -228,6 +233,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "24B85961-6762-437B-8B61-46F02824F0C1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -244,6 +250,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: David van de Vondervoort (794PJ6XW4E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -252,6 +259,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "24B85961-6762-437B-8B61-46F02824F0C1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -298,6 +306,7 @@
 				63595292171C104B005913DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

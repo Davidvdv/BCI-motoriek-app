@@ -11,6 +11,13 @@
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *movingView;
+@property (weak, nonatomic) IBOutlet UILabel *XLabel;
+@property (weak, nonatomic) IBOutlet UILabel *YLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ZLabel;
+
+
+
+@property (strong, nonatomic) NSTimer *timer;
 
 - (IBAction)startMotionDetection:(id)sender;
 - (IBAction)stopMotionDetection:(id)sender;

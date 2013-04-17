@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		63096BE7171D305D00E56D25 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63096BE5171D2FCC00E56D25 /* CoreMotion.framework */; };
+		63096BEA171D7FB700E56D25 /* ExercisesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */; };
 		63595271171C104B005913DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595270171C104B005913DC /* UIKit.framework */; };
 		63595273171C104B005913DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595272171C104B005913DC /* Foundation.framework */; };
 		63595275171C104B005913DC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595274171C104B005913DC /* CoreGraphics.framework */; };
@@ -23,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		63096BE5171D2FCC00E56D25 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		63096BE8171D7FB700E56D25 /* ExercisesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExercisesTableViewController.h; sourceTree = "<group>"; };
+		63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExercisesTableViewController.m; sourceTree = "<group>"; };
 		6359526D171C104B005913DC /* MotoriekApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotoriekApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63595270171C104B005913DC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63595272171C104B005913DC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -92,6 +95,8 @@
 				63595288171C104B005913DC /* MainStoryboard.storyboard */,
 				6359528B171C104B005913DC /* ViewController.h */,
 				6359528C171C104B005913DC /* ViewController.m */,
+				63096BE8171D7FB700E56D25 /* ExercisesTableViewController.h */,
+				63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */,
 				63595277171C104B005913DC /* Supporting Files */,
 			);
 			path = MotoriekApp;
@@ -180,6 +185,7 @@
 				6359527D171C104B005913DC /* main.m in Sources */,
 				63595281171C104B005913DC /* AppDelegate.m in Sources */,
 				6359528D171C104B005913DC /* ViewController.m in Sources */,
+				63096BEA171D7FB700E56D25 /* ExercisesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

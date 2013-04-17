@@ -14,6 +14,7 @@
     
     if(!motionManager) {
         motionManager = [[CMMotionManager alloc] init];
+        //[motionManager setAccelerometerUpdateInterval:0.05];
     }
     
     return motionManager;

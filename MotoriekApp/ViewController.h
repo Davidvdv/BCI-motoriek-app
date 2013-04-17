@@ -7,17 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Exercise.h"
 
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *movingView;
-@property (weak, nonatomic) IBOutlet UILabel *XLabel;
-@property (weak, nonatomic) IBOutlet UILabel *YLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ZLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *XAccelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *YAccelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ZAccelLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *XGyroLabel;
+@property (weak, nonatomic) IBOutlet UILabel *YGyroLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ZGyroLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *pitchAttitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rollAttitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *yawAttitudeLabel;
 
 @property (strong, nonatomic) NSTimer *timer;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)startMotionDetection:(id)sender;
 - (IBAction)stopMotionDetection:(id)sender;

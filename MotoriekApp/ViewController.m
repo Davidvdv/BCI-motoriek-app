@@ -14,12 +14,16 @@
 @end
 
 @implementation ViewController
-@synthesize timer, XLabel, YLabel, ZLabel;
+
+@synthesize timer, managedObjectContext;
+@synthesize XAccelLabel, YAccelLabel, ZAccelLabel;
+@synthesize XGyroLabel, YGyroLabel, ZGyroLabel;
+@synthesize rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
 
 - (CMMotionManager *)motionManager {
 
     CMMotionManager *motionManager = nil;
-    id appDelegate = [UIApplication sharedApplication].delegate;
+    id appDelegate = [[UIApplication sharedApplication] delegate];
     
     if([appDelegate respondsToSelector:@selector(motionManager)]) {
         motionManager = [appDelegate motionManager];
@@ -28,25 +32,32 @@
     return motionManager;
 }
 
+- (NSManagedObjectContext *) managementObjectContext {
+    if(self.managedObjectContext == nil) {
+        id appDelegate = [[UIApplication sharedApplication] delegate];
+        self.managedObjectContext = [appDelegate managementObjectContext];
+    }
+        
+    return managedObjectContext;
+}
+
 - (void) startMotionUpdates {
     CMMotionManager *motionManager = [self motionManager];
-    __block CMAccelerometerData *logMotion;
     
-    [motionManager startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+    [motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             CGRect movingRect = self.movingView.frame;
 
 //            if (movingRect.origin.x < self.view.frame.size.width && movingRect.origin.x > 0) {
-//                movingRect.origin.x += accelerometerData.acceleration.x *15;
+//                movingRect.origin.x += deviceMotion.acceleration.x *15;
 //            }
 //            
 //            if(movingRect.origin.y > 0 && movingRect.origin.y < self.view.frame.origin.y) {
-//                 movingRect.origin.y -= accelerometerData.acceleration.y *15;
+//                 movingRect.origin.y -= deviceMotion.acceleration.y *15;
 //            }
-            
-            movingRect.origin.x += accelerometerData.acceleration.x *15;
-            movingRect.origin.y -= accelerometerData.acceleration.y *15;
+            movingRect.origin.x += deviceMotion.attitude.roll*15;
+            movingRect.origin.y += deviceMotion.attitude.pitch*15;
            
             if (CGRectContainsRect(self.view.bounds, movingRect)) {
                 self.view.backgroundColor = [UIColor whiteColor];
@@ -56,26 +67,29 @@
 
             self.movingView.frame = movingRect;
             
-            logMotion = accelerometerData;
+            // Accelerometer
+            [XAccelLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.userAcceleration.x]];
+            [YAccelLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.userAcceleration.y]];
+            [ZAccelLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.userAcceleration.z]];
             
-            [XLabel setText:[NSString stringWithFormat:@"%f", accelerometerData.acceleration.x]];
-            [YLabel setText:[NSString stringWithFormat:@"%f", accelerometerData.acceleration.y]];
-            [ZLabel setText:[NSString stringWithFormat:@"%f", accelerometerData.acceleration.z]];
+            // Gyro ration rate
+            [XGyroLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.rotationRate.x]];
+            [YGyroLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.rotationRate.y]];
+            [ZGyroLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.rotationRate.z]];
+            
+            // Attitude ration rate
+            [rollAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.roll]];
+            [pitchAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.pitch]];
+            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];
         });
         
     }];
     
-    [motionManager startGyroUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMGyroData *gyroData, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-        });
-    }];
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logDataWithAcceleration) userInfo:logMotion repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logDataWithAcceleration) userInfo:nil repeats:YES];
 }
 
 - (void) logDataWithAcceleration {
     NSLog(@"logDataWithAcceleration");
-    CMAccelerometerData *logMotion = [timer userInfo];
     
 //    [XLabel setText:[NSString stringWithFormat:@"%f", logMotion.acceleration.x]];
 //    [YLabel setText:[NSString stringWithFormat:@"%f", logMotion.acceleration.y]];
@@ -84,8 +98,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[self motionManager] stopAccelerometerUpdates];
-    [[self motionManager] stopGyroUpdates];
+    [[self motionManager] stopDeviceMotionUpdates];
 }
 
 - (void)viewDidLoad
@@ -102,7 +115,9 @@
 
 - (IBAction)startMotionDetection:(id)sender {
     NSLog(@"startMotionDetection");
+    
     [self startMotionUpdates];
+    [self insertNewMotionLog];
     
 //    testQueue = dispatch_queue_create("testqueue", NULL);
 //    dispatch_async(testQueue, ^{
@@ -116,9 +131,40 @@
 
 - (IBAction)stopMotionDetection:(id)sender {
     NSLog(@"stopMotionDetection");
-    [[self motionManager] stopAccelerometerUpdates];
-    [[self motionManager] stopGyroUpdates];
+    [[self motionManager] stopDeviceMotionUpdates];
+    [self fetch];
     [timer invalidate];
 }
+
+- (void) insertNewMotionLog {
+    // Core Data
+    Exercise *exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:self.managementObjectContext];
+    
+    [exercise setName:@"David"];
+    [exercise setDatetime:[NSDate date]];
+    
+    NSError *error = nil;
+    if (![self.managementObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+}
+
+- (void) fetch {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
+    [fetchRequest setEntity:entity];
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[self managedObjectContext] executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"Problem! %@", error);
+    }
+    
+    for (Exercise *exercise in fetchedObjects) {
+        NSLog(@"name %@", [exercise name]);
+        NSLog( @"datetime %@", [NSDateFormatter localizedStringFromDate:[exercise datetime] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterNoStyle]);
+    }
+}
+
 @end
 

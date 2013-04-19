@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Exercise.h"
 
 @interface ExercisesTableViewController : UITableViewController
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end

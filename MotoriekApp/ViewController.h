@@ -27,8 +27,6 @@
 
 @property (strong, nonatomic) NSTimer *timer;
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 - (IBAction)startMotionDetection:(id)sender;
 - (IBAction)stopMotionDetection:(id)sender;
 

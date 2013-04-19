@@ -15,10 +15,8 @@
 
 @implementation ViewController
 
-@synthesize timer, managedObjectContext;
-@synthesize XAccelLabel, YAccelLabel, ZAccelLabel;
-@synthesize XGyroLabel, YGyroLabel, ZGyroLabel;
-@synthesize rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
+@synthesize timer;
+@synthesize XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
 
 - (CMMotionManager *)motionManager {
 
@@ -32,11 +30,10 @@
     return motionManager;
 }
 
-- (NSManagedObjectContext *) managementObjectContext {
-    if(self.managedObjectContext == nil) {
-        id appDelegate = [[UIApplication sharedApplication] delegate];
-        self.managedObjectContext = [appDelegate managementObjectContext];
-    }
+- (NSManagedObjectContext *) managedObjectContext {
+
+    id appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
         
     return managedObjectContext;
 }
@@ -117,7 +114,7 @@
     NSLog(@"startMotionDetection");
     
     [self startMotionUpdates];
-    [self insertNewMotionLog];
+    [self insertExercise];
     
 //    testQueue = dispatch_queue_create("testqueue", NULL);
 //    dispatch_async(testQueue, ^{
@@ -132,37 +129,19 @@
 - (IBAction)stopMotionDetection:(id)sender {
     NSLog(@"stopMotionDetection");
     [[self motionManager] stopDeviceMotionUpdates];
-    [self fetch];
     [timer invalidate];
 }
 
-- (void) insertNewMotionLog {
+- (void) insertExercise {
     // Core Data
-    Exercise *exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:self.managementObjectContext];
+    Exercise *exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
     
     [exercise setName:@"David"];
     [exercise setDatetime:[NSDate date]];
     
     NSError *error = nil;
-    if (![self.managementObjectContext save:&error]) {
+    if (![[self managedObjectContext] save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
-}
-
-- (void) fetch {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
-    [fetchRequest setEntity:entity];
-
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[self managedObjectContext] executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Problem! %@", error);
-    }
-    
-    for (Exercise *exercise in fetchedObjects) {
-        NSLog(@"name %@", [exercise name]);
-        NSLog( @"datetime %@", [NSDateFormatter localizedStringFromDate:[exercise datetime] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterNoStyle]);
     }
 }
 

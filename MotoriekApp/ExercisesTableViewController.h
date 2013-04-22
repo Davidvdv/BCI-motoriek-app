@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Exercise.h"
 
-@interface ExercisesTableViewController : UITableViewController
+@interface ExercisesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

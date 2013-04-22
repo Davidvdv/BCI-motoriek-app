@@ -15,8 +15,7 @@
 
 @implementation ViewController
 
-@synthesize timer;
-@synthesize XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
+@synthesize motionLogs, timer, XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
 
 - (CMMotionManager *)motionManager {
 
@@ -40,21 +39,23 @@
 
 - (void) startMotionUpdates {
     CMMotionManager *motionManager = [self motionManager];
+    __block CMDeviceMotion *thisDeviceMotion;
     
     [motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             CGRect movingRect = self.movingView.frame;
 
-//            if (movingRect.origin.x < self.view.frame.size.width && movingRect.origin.x > 0) {
-//                movingRect.origin.x += deviceMotion.acceleration.x *15;
-//            }
-//            
-//            if(movingRect.origin.y > 0 && movingRect.origin.y < self.view.frame.origin.y) {
-//                 movingRect.origin.y -= deviceMotion.acceleration.y *15;
-//            }
-            movingRect.origin.x += deviceMotion.attitude.roll*15;
-            movingRect.origin.y += deviceMotion.attitude.pitch*15;
+            if (movingRect.origin.x + (deviceMotion.attitude.roll *15) >= 0 && movingRect.origin.x <= (self.view.frame.size.width - movingRect.size.width)) {
+                movingRect.origin.x += deviceMotion.attitude.roll*15;
+            }
+            
+            if(movingRect.origin.y + (deviceMotion.attitude.pitch *15) >= 0 && movingRect.origin.y <= (self.view.frame.size.height - movingRect.size.height)) {
+                movingRect.origin.y += deviceMotion.attitude.pitch*15;
+            }
+            
+            //movingRect.origin.x += deviceMotion.attitude.roll*15;
+            //movingRect.origin.y += deviceMotion.attitude.pitch*15;
            
             if (CGRectContainsRect(self.view.bounds, movingRect)) {
                 self.view.backgroundColor = [UIColor whiteColor];
@@ -78,19 +79,21 @@
             [rollAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.roll]];
             [pitchAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.pitch]];
             [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];
+            
+            thisDeviceMotion = deviceMotion;
         });
         
     }];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logDataWithAcceleration) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logDataWithAcceleration) userInfo:thisDeviceMotion repeats:YES];
 }
 
 - (void) logDataWithAcceleration {
-    NSLog(@"logDataWithAcceleration");
     
-//    [XLabel setText:[NSString stringWithFormat:@"%f", logMotion.acceleration.x]];
-//    [YLabel setText:[NSString stringWithFormat:@"%f", logMotion.acceleration.y]];
-//    [ZLabel setText:[NSString stringWithFormat:@"%f", logMotion.acceleration.z]];
+    NSDictionary *motion = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1.56", @"0.4576", @"1.00012", nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];
+    [motionLogs addObject:motion];
+
+    NSLog(@"%i", [motionLogs count]);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -102,6 +105,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    motionLogs = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,38 +115,43 @@
 }
 
 - (IBAction)startMotionDetection:(id)sender {
-    NSLog(@"startMotionDetection");
     
     [self startMotionUpdates];
-    [self insertExercise];
-    
-//    testQueue = dispatch_queue_create("testqueue", NULL);
-//    dispatch_async(testQueue, ^{
-//        NSURL *aapje = [NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/api/v1/exercises"];
-//        
-//        NSString *test = [[NSString alloc] initWithContentsOfURL:aapje encoding:NSStringEncodingConversionAllowLossy error:nil];
-//        NSLog(test);
-//
-//    });
+    //[self insertExercise];
 }
 
 - (IBAction)stopMotionDetection:(id)sender {
-    NSLog(@"stopMotionDetection");
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
+    //[self sendMotionLogsToServer];
 }
 
 - (void) insertExercise {
     // Core Data
     Exercise *exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
     
-    [exercise setName:@"David"];
+    [exercise setName:@"Remco"];
     [exercise setDatetime:[NSDate date]];
     
     NSError *error = nil;
     if (![[self managedObjectContext] save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    } else {
+        NSLog(@"insertExercise");
     }
+}
+
+- (void) sendMotionLogsToServer {
+    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"Motion 1", @"name", motionLogs, @"motionlogs", nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    NSURL *aapje = [NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/api/v1/exercises"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:aapje];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:data];
+     
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:nil];
+    
+    NSLog(@"%@", dic);
 }
 
 @end

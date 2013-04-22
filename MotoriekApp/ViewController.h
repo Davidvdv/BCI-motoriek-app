@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *yawAttitudeLabel;
 
 @property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) NSMutableArray *motionLogs;
 
 - (IBAction)startMotionDetection:(id)sender;
 - (IBAction)stopMotionDetection:(id)sender;

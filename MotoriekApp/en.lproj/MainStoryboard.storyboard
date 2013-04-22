@@ -279,7 +279,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="1L2-Ag-Co9">
             <objects>
-                <tabBarController id="tmt-3k-QYx" sceneMemberID="viewController">
+                <tabBarController hidesBottomBarWhenPushed="YES" id="tmt-3k-QYx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="pjo-KW-2Bi">

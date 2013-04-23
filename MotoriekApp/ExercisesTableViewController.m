@@ -78,7 +78,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"ExerciseCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
@@ -88,7 +88,7 @@
     
     Exercise *exercise = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterFullStyle];
+    NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:exercise.datetime dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
 
     [[cell textLabel] setText:exercise.name];
     [[cell detailTextLabel] setText:exerciseDatetime];
@@ -153,6 +153,17 @@
      */
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showExerciseDetailsSegue"]) {
+        DetailExerciseViewController *detailExerciseViewController = [segue destinationViewController];
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        Exercise *selectedExercise = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        [detailExerciseViewController setCurrentExercise:selectedExercise];
+    }
+}
+
 #pragma mark - NSFetchedResultsController
 
 - (NSFetchedResultsController *) fetchedResultsController {
@@ -161,8 +172,7 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Exercise"
-    inManagedObjectContext:[self managedObjectContext]];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
     [fetchRequest setEntity:entity];
 
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"

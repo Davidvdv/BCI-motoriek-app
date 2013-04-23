@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Exercise.h"
+#import "DetailExerciseViewController.h"
 
 @interface ExercisesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 

@@ -24,6 +24,7 @@
 		6359528A171C104B005913DC /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63595288171C104B005913DC /* MainStoryboard.storyboard */; };
 		6359528D171C104B005913DC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359528C171C104B005913DC /* ViewController.m */; };
 		637431F4171FF8FC0043A622 /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 637431F3171FF8FC0043A622 /* MotionLog.m */; };
+		6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388A26217267B9800190E2D /* DetailExerciseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		6359528C171C104B005913DC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		637431F2171FF8FC0043A622 /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLog.h; sourceTree = "<group>"; };
 		637431F3171FF8FC0043A622 /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLog.m; sourceTree = "<group>"; };
+		6388A26117267B9800190E2D /* DetailExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailExerciseViewController.h; sourceTree = "<group>"; };
+		6388A26217267B9800190E2D /* DetailExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailExerciseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,8 @@
 				6359528C171C104B005913DC /* ViewController.m */,
 				63096BE8171D7FB700E56D25 /* ExercisesTableViewController.h */,
 				63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */,
+				6388A26117267B9800190E2D /* DetailExerciseViewController.h */,
+				6388A26217267B9800190E2D /* DetailExerciseViewController.m */,
 				63293310171E857C001E2A3A /* MotoriekApp.xcdatamodeld */,
 				63293381171E9451001E2A3A /* Models */,
 				63595277171C104B005913DC /* Supporting Files */,
@@ -214,6 +219,7 @@
 				63293312171E857C001E2A3A /* MotoriekApp.xcdatamodeld in Sources */,
 				6329337A171E93D6001E2A3A /* Exercise.m in Sources */,
 				637431F4171FF8FC0043A622 /* MotionLog.m in Sources */,
+				6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

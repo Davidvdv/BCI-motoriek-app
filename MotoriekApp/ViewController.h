@@ -27,6 +27,7 @@
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) NSMutableArray *motionLogs;
+@property (strong, nonatomic) Exercise *exercise;
 
 - (IBAction)startMotionDetection:(id)sender;
 - (IBAction)stopMotionDetection:(id)sender;

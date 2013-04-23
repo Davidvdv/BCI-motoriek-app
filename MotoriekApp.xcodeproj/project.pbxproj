@@ -23,8 +23,8 @@
 		63595287171C104B005913DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63595286171C104B005913DC /* Default-568h@2x.png */; };
 		6359528A171C104B005913DC /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63595288171C104B005913DC /* MainStoryboard.storyboard */; };
 		6359528D171C104B005913DC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359528C171C104B005913DC /* ViewController.m */; };
-		637431F4171FF8FC0043A622 /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 637431F3171FF8FC0043A622 /* MotionLog.m */; };
 		6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388A26217267B9800190E2D /* DetailExerciseViewController.m */; };
+		6388A2691726A64100190E2D /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388A2681726A64100190E2D /* MotionLog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,10 +51,10 @@
 		63595289171C104B005913DC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6359528B171C104B005913DC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6359528C171C104B005913DC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		637431F2171FF8FC0043A622 /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLog.h; sourceTree = "<group>"; };
-		637431F3171FF8FC0043A622 /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLog.m; sourceTree = "<group>"; };
 		6388A26117267B9800190E2D /* DetailExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailExerciseViewController.h; sourceTree = "<group>"; };
 		6388A26217267B9800190E2D /* DetailExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailExerciseViewController.m; sourceTree = "<group>"; };
+		6388A2671726A64100190E2D /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionLog.h; path = ../MotionLog.h; sourceTree = "<group>"; };
+		6388A2681726A64100190E2D /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionLog.m; path = ../MotionLog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +76,8 @@
 		63293381171E9451001E2A3A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				637431F2171FF8FC0043A622 /* MotionLog.h */,
-				637431F3171FF8FC0043A622 /* MotionLog.m */,
+				6388A2671726A64100190E2D /* MotionLog.h */,
+				6388A2681726A64100190E2D /* MotionLog.m */,
 				63293378171E93D6001E2A3A /* Exercise.h */,
 				63293379171E93D6001E2A3A /* Exercise.m */,
 			);
@@ -218,8 +218,8 @@
 				63096BEA171D7FB700E56D25 /* ExercisesTableViewController.m in Sources */,
 				63293312171E857C001E2A3A /* MotoriekApp.xcdatamodeld in Sources */,
 				6329337A171E93D6001E2A3A /* Exercise.m in Sources */,
-				637431F4171FF8FC0043A622 /* MotionLog.m in Sources */,
 				6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */,
+				6388A2691726A64100190E2D /* MotionLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

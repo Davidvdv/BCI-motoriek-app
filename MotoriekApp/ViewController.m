@@ -10,7 +10,7 @@
 #import <CoreMotion/CoreMotion.h>
 
 @interface ViewController () {
-    NSMutableDictionary *motion;
+    NSMutableDictionary *thisMotions;
 }
 
 @end
@@ -81,14 +81,7 @@
             // Attitude ration rate
             [rollAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.roll]];
             [pitchAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.pitch]];
-            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];
-            
-            /*NSNumber *roll = [NSNumber numberWithDouble:deviceMotion.attitude.roll];
-            NSNumber *pitch = [NSNumber numberWithDouble:deviceMotion.attitude.roll];
-            NSNumber *yaw = [NSNumber numberWithDouble:deviceMotion.attitude.yaw];
-            
-            motion = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:pitch, roll, yaw, nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];*/
-            
+            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];            
         });
         
     }];
@@ -97,6 +90,14 @@
 }
 
 - (void)logMotionData {
+
+//    NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
+//    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+//    NSNumber *roll = [numberFormatter numberFromString:rollAttitudeLabel.text];
+//    NSNumber *pitch = [numberFormatter numberFromString:rollAttitudeLabel.text];
+//    NSNumber *yaw = [numberFormatter numberFromString:rollAttitudeLabel.text];
+    
+    //NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitch, roll, yaw, nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];
     
     NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];
     [motionLogs addObject:loggedMotion];
@@ -105,7 +106,7 @@
 - (IBAction)startMotionDetection:(id)sender {
     
     [self startMotionUpdates];
-    [self insertExercise];
+    [self createExercise];
 }
 
 - (IBAction)stopMotionDetection:(id)sender {
@@ -115,22 +116,22 @@
     NSLog(@"%@", motionLogs);
 }
 
-- (void)motionEnded:(UIEventSubtype)motionEvent withEvent:(UIEvent *)event
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
-    if (motionEvent == UIEventSubtypeMotionShake) {
+    if (motion == UIEventSubtypeMotionShake) {
         UIAlertView *shakeAlert = [[UIAlertView alloc] initWithTitle:@"Shake" message:@"Je hebt geschud. Let nu op de Philips Hue" delegate:nil cancelButtonTitle:@"Nice" otherButtonTitles:nil];
         [shakeAlert show];
     }
 }
 
-#pragma mark -
+#pragma mark - Override delegate methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     motionLogs = [[NSMutableArray alloc] init];
-    motion = [[NSMutableDictionary alloc] init];
+    thisMotions = [[NSMutableDictionary alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,7 +151,7 @@
 
 #pragma mark - Save logged motions
 
-- (void) insertExercise {
+- (void) createExercise {
     // Core Data
     exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
     
@@ -160,6 +161,32 @@
     NSError *error = nil;
     if (![[self managedObjectContext] save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+}
+
+- (void) addMotionLogs {
+    if(exercise != nil) {
+        NSMutableSet *setWithMotions = [[NSMutableSet alloc] init];
+        
+        MotionLog *loggedMotion = (MotionLog *)[NSEntityDescription insertNewObjectForEntityForName:@"MotionLog" inManagedObjectContext:[self managedObjectContext]];
+        
+        for (NSDictionary *dict in motionLogs) {
+            
+            
+            [loggedMotion setPitch:[dict objectForKey:@"pitch"]];
+            [loggedMotion setRoll:[dict objectForKey:@"roll"]];
+            [loggedMotion setYaw:[dict objectForKey:@"yaw"]];
+            [loggedMotion setExercise:exercise];
+            
+            [setWithMotions addObject:loggedMotion];
+        }
+        
+        [exercise addMotionLog:setWithMotions];
+        
+        NSError *error = nil;
+        if (![[self managedObjectContext] save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
     }
 }
 

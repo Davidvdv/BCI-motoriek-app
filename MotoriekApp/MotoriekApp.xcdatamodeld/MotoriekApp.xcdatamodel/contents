@@ -6,12 +6,14 @@
         <relationship name="motionLog" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MotionLog" inverseName="exercise" inverseEntity="MotionLog" syncable="YES"/>
     </entity>
     <entity name="MotionLog" representedClassName="MotionLog" syncable="YES">
-        <attribute name="motionValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="pitch" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="roll" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="yaw" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="exercise" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="motionLog" inverseEntity="Exercise" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Exercise" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MotionLog" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Exercise" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MotionLog" positionX="214" positionY="135" width="128" height="118"/>
     </elements>
 </model>

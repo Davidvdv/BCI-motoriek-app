@@ -2,7 +2,7 @@
 //  MotionLog.h
 //  MotoriekApp
 //
-//  Created by David van de Vondervoort on 17-04-13.
+//  Created by David van de Vondervoort on 23-04-13.
 //  Copyright (c) 2013 David van de Vondervoort. All rights reserved.
 //
 
@@ -13,8 +13,10 @@
 
 @interface MotionLog : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * motionValue;
+@property (nonatomic, retain) NSNumber * pitch;
 @property (nonatomic, retain) NSDate * timestamp;
+@property (nonatomic, retain) NSNumber * roll;
+@property (nonatomic, retain) NSNumber * yaw;
 @property (nonatomic, retain) Exercise *exercise;
 
 @end

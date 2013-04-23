@@ -14,7 +14,7 @@
 
 @implementation DetailExerciseViewController
 
-@synthesize currentExercise;
+@synthesize currentExercise, exerciseTitleLabel, exerciseDatetimeLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,8 +29,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
     [self setTitle:currentExercise.name];
-    NSLog(@"%@", currentExercise);
+    [exerciseTitleLabel setText:currentExercise.name];
+    
+    NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:currentExercise.datetime dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+    [exerciseDatetimeLabel setText:exerciseDatetime];
+    
+    NSLog(@"%@", currentExercise.motionLog);
 }
 
 - (void)didReceiveMemoryWarning

@@ -298,9 +298,38 @@
                     <view key="view" contentMode="scaleToFill" id="kLk-E4-U07">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RL2-8M-lMj">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="NvR-u1-T1V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="datetime" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOx-Ih-xSw">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="jkK-zn-ISD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RL2-8M-lMj" firstAttribute="leading" secondItem="kLk-E4-U07" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="68r-TC-XNO"/>
+                            <constraint firstAttribute="trailing" secondItem="gOx-Ih-xSw" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="B8g-gy-PbJ"/>
+                            <constraint firstItem="gOx-Ih-xSw" firstAttribute="top" secondItem="kLk-E4-U07" secondAttribute="top" constant="20" symbolic="YES" type="default" id="IyF-B1-d6Y"/>
+                            <constraint firstItem="gOx-Ih-xSw" firstAttribute="bottom" secondItem="RL2-8M-lMj" secondAttribute="bottom" type="default" id="Phi-jr-OO5"/>
+                            <constraint firstItem="RL2-8M-lMj" firstAttribute="top" secondItem="kLk-E4-U07" secondAttribute="top" constant="20" symbolic="YES" type="default" id="s88-5k-aW8"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HYE-pD-Roi"/>
+                    <connections>
+                        <outlet property="exerciseDatetimeLabel" destination="gOx-Ih-xSw" id="bwG-SN-rNj"/>
+                        <outlet property="exerciseTitleLabel" destination="RL2-8M-lMj" id="gDq-8R-nyr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRN-Dj-nLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -349,6 +378,10 @@
     <classes>
         <class className="DetailExerciseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailExerciseViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="ExerciseTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="exerciseDatetimeLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="ExercisesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ExercisesTableViewController.h"/>

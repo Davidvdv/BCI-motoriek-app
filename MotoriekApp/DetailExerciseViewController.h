@@ -11,6 +11,9 @@
 
 @interface DetailExerciseViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *exerciseTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *exerciseDatetimeLabel;
+
 @property (strong, nonatomic) Exercise *currentExercise;
 
 @end

@@ -2,7 +2,7 @@
 //  MotionLog.m
 //  MotoriekApp
 //
-//  Created by David van de Vondervoort on 17-04-13.
+//  Created by David van de Vondervoort on 23-04-13.
 //  Copyright (c) 2013 David van de Vondervoort. All rights reserved.
 //
 
@@ -12,8 +12,10 @@
 
 @implementation MotionLog
 
-@dynamic motionValue;
+@dynamic pitch;
 @dynamic timestamp;
+@dynamic roll;
+@dynamic yaw;
 @dynamic exercise;
 
 @end

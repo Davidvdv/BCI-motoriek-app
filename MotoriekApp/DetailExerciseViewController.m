@@ -14,7 +14,7 @@
 
 @implementation DetailExerciseViewController
 
-@synthesize currentExercise, exerciseTitleLabel, exerciseDatetimeLabel;
+@synthesize currentExercise, exerciseTitleLabel, exerciseDatetimeLabel, webViewGraph;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +35,10 @@
     
     NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:currentExercise.datetime dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     [exerciseDatetimeLabel setText:exerciseDatetime];
+
+    NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/#88"]];
+    [[webViewGraph scrollView] setBounces:NO];
+    [webViewGraph loadRequest:webviewRequest];
     
     NSLog(@"%@", currentExercise.motionLog);
 }

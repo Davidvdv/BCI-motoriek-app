@@ -86,7 +86,7 @@
         
     }];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logMotionData) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionData) userInfo:nil repeats:YES];
 }
 
 - (void)logMotionData {
@@ -99,7 +99,7 @@
     
     //NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitch, roll, yaw, nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];
     
-    NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];
+    NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, [NSDate date], nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", @"timestamp", nil]];
     [motionLogs addObject:loggedMotion];
 }
 
@@ -172,10 +172,10 @@
         
         for (NSDictionary *dict in motionLogs) {
             
-            
             [loggedMotion setPitch:[dict objectForKey:@"pitch"]];
             [loggedMotion setRoll:[dict objectForKey:@"roll"]];
             [loggedMotion setYaw:[dict objectForKey:@"yaw"]];
+            [loggedMotion setTimestamp:[NSDate date]];
             [loggedMotion setExercise:exercise];
             
             [setWithMotions addObject:loggedMotion];

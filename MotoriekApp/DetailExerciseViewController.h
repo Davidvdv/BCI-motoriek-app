@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *exerciseTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *exerciseDatetimeLabel;
+@property (weak, nonatomic) IBOutlet UIWebView *webViewGraph;
 
 @property (strong, nonatomic) Exercise *currentExercise;
 

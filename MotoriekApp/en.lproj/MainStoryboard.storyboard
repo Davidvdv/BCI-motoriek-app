@@ -44,7 +44,7 @@
                                     <action selector="stopMotionDetection:" destination="2" eventType="touchUpInside" id="nwh-Ka-vcH"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ki-yZh">
+                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ki-yZh">
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="aX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtd-qe-ovj">
@@ -315,20 +315,31 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-9u-7xe">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="331" id="Bvx-8e-pcC"/>
+                                </constraints>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RL2-8M-lMj" firstAttribute="leading" secondItem="kLk-E4-U07" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="68r-TC-XNO"/>
                             <constraint firstAttribute="trailing" secondItem="gOx-Ih-xSw" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="B8g-gy-PbJ"/>
-                            <constraint firstItem="gOx-Ih-xSw" firstAttribute="top" secondItem="kLk-E4-U07" secondAttribute="top" constant="20" symbolic="YES" type="default" id="IyF-B1-d6Y"/>
-                            <constraint firstItem="gOx-Ih-xSw" firstAttribute="bottom" secondItem="RL2-8M-lMj" secondAttribute="bottom" type="default" id="Phi-jr-OO5"/>
-                            <constraint firstItem="RL2-8M-lMj" firstAttribute="top" secondItem="kLk-E4-U07" secondAttribute="top" constant="20" symbolic="YES" type="default" id="s88-5k-aW8"/>
+                            <constraint firstItem="RQQ-9u-7xe" firstAttribute="top" secondItem="RL2-8M-lMj" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DXb-vl-qbQ"/>
+                            <constraint firstItem="gOx-Ih-xSw" firstAttribute="top" secondItem="RL2-8M-lMj" secondAttribute="top" type="default" id="KFc-kI-Ebr"/>
+                            <constraint firstItem="RQQ-9u-7xe" firstAttribute="top" secondItem="gOx-Ih-xSw" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Mpp-jS-BJR"/>
+                            <constraint firstItem="RQQ-9u-7xe" firstAttribute="leading" secondItem="kLk-E4-U07" secondAttribute="leading" type="default" id="ef5-E5-tQ9"/>
+                            <constraint firstItem="RQQ-9u-7xe" firstAttribute="bottom" secondItem="kLk-E4-U07" secondAttribute="bottom" type="default" id="iX9-t3-FYa"/>
+                            <constraint firstItem="RQQ-9u-7xe" firstAttribute="trailing" secondItem="kLk-E4-U07" secondAttribute="trailing" type="default" id="xLB-jP-hFa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HYE-pD-Roi"/>
                     <connections>
                         <outlet property="exerciseDatetimeLabel" destination="gOx-Ih-xSw" id="bwG-SN-rNj"/>
                         <outlet property="exerciseTitleLabel" destination="RL2-8M-lMj" id="gDq-8R-nyr"/>
+                        <outlet property="webViewGraph" destination="RQQ-9u-7xe" id="6HO-4i-29K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRN-Dj-nLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -375,38 +386,6 @@
             <point key="canvasLocation" x="781" y="336"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="DetailExerciseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailExerciseViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="ExerciseTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="exerciseDatetimeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ExercisesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExercisesTableViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="startMotionDetection:"/>
-                <relationship kind="action" name="stopMotionDetection:"/>
-                <relationship kind="outlet" name="XAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="XGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="YAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="YGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ZAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ZGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="movingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pitchAttitudeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rollAttitudeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="yawAttitudeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

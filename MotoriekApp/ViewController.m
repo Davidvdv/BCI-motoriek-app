@@ -144,9 +144,9 @@
     [[self motionManager] stopDeviceMotionUpdates];
 }
 
-//- (BOOL)canBecomeFirstResponder {
-//    return YES;
-//}
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
 
 #pragma mark - Save logged motions
 

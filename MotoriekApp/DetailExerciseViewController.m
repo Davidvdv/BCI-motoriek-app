@@ -35,8 +35,10 @@
     
     NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:currentExercise.datetime dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     [exerciseDatetimeLabel setText:exerciseDatetime];
+    
+    NSString *url = [NSString stringWithFormat:@"http://bci.remcoraaijmakers.nl/#%@",currentExercise.apiNumber];
 
-    NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/#88"]];
+    NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [[webViewGraph scrollView] setBounces:NO];
     [webViewGraph loadRequest:webviewRequest];
     

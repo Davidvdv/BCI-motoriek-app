@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		63096BE7171D305D00E56D25 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63096BE5171D2FCC00E56D25 /* CoreMotion.framework */; };
+		63096BEA171D7FB700E56D25 /* ExercisesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */; };
+		6329330F171E8503001E2A3A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329330E171E8503001E2A3A /* CoreData.framework */; };
+		63293312171E857C001E2A3A /* MotoriekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63293310171E857C001E2A3A /* MotoriekApp.xcdatamodeld */; };
 		63595271171C104B005913DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595270171C104B005913DC /* UIKit.framework */; };
 		63595273171C104B005913DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595272171C104B005913DC /* Foundation.framework */; };
 		63595275171C104B005913DC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63595274171C104B005913DC /* CoreGraphics.framework */; };
@@ -19,10 +22,17 @@
 		63595287171C104B005913DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63595286171C104B005913DC /* Default-568h@2x.png */; };
 		6359528A171C104B005913DC /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63595288171C104B005913DC /* MainStoryboard.storyboard */; };
 		6359528D171C104B005913DC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359528C171C104B005913DC /* ViewController.m */; };
+		6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388A26217267B9800190E2D /* DetailExerciseViewController.m */; };
+		63AAF2241727C18B00C1D8CA /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF2231727C18B00C1D8CA /* Exercise.m */; };
+		63AAF22A1727CE2000C1D8CA /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF2291727CE2000C1D8CA /* MotionLog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		63096BE5171D2FCC00E56D25 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		63096BE8171D7FB700E56D25 /* ExercisesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExercisesTableViewController.h; sourceTree = "<group>"; };
+		63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExercisesTableViewController.m; sourceTree = "<group>"; };
+		6329330E171E8503001E2A3A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		63293311171E857C001E2A3A /* MotoriekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MotoriekApp.xcdatamodel; sourceTree = "<group>"; };
 		6359526D171C104B005913DC /* MotoriekApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotoriekApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63595270171C104B005913DC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63595272171C104B005913DC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -39,6 +49,12 @@
 		63595289171C104B005913DC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6359528B171C104B005913DC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6359528C171C104B005913DC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6388A26117267B9800190E2D /* DetailExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailExerciseViewController.h; sourceTree = "<group>"; };
+		6388A26217267B9800190E2D /* DetailExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailExerciseViewController.m; sourceTree = "<group>"; };
+		63AAF2221727C18B00C1D8CA /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
+		63AAF2231727C18B00C1D8CA /* Exercise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exercise.m; sourceTree = "<group>"; };
+		63AAF2281727CE2000C1D8CA /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLog.h; sourceTree = "<group>"; };
+		63AAF2291727CE2000C1D8CA /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6329330F171E8503001E2A3A /* CoreData.framework in Frameworks */,
 				63096BE7171D305D00E56D25 /* CoreMotion.framework in Frameworks */,
 				63595271171C104B005913DC /* UIKit.framework in Frameworks */,
 				63595273171C104B005913DC /* Foundation.framework in Frameworks */,
@@ -56,6 +73,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63293381171E9451001E2A3A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				63AAF2281727CE2000C1D8CA /* MotionLog.h */,
+				63AAF2291727CE2000C1D8CA /* MotionLog.m */,
+				63AAF2221727C18B00C1D8CA /* Exercise.h */,
+				63AAF2231727C18B00C1D8CA /* Exercise.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		63595264171C104B005913DC = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +104,7 @@
 		6359526F171C104B005913DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6329330E171E8503001E2A3A /* CoreData.framework */,
 				63096BE5171D2FCC00E56D25 /* CoreMotion.framework */,
 				63595270171C104B005913DC /* UIKit.framework */,
 				63595272171C104B005913DC /* Foundation.framework */,
@@ -92,6 +121,12 @@
 				63595288171C104B005913DC /* MainStoryboard.storyboard */,
 				6359528B171C104B005913DC /* ViewController.h */,
 				6359528C171C104B005913DC /* ViewController.m */,
+				63096BE8171D7FB700E56D25 /* ExercisesTableViewController.h */,
+				63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */,
+				6388A26117267B9800190E2D /* DetailExerciseViewController.h */,
+				6388A26217267B9800190E2D /* DetailExerciseViewController.m */,
+				63293310171E857C001E2A3A /* MotoriekApp.xcdatamodeld */,
+				63293381171E9451001E2A3A /* Models */,
 				63595277171C104B005913DC /* Supporting Files */,
 			);
 			path = MotoriekApp;
@@ -180,6 +215,11 @@
 				6359527D171C104B005913DC /* main.m in Sources */,
 				63595281171C104B005913DC /* AppDelegate.m in Sources */,
 				6359528D171C104B005913DC /* ViewController.m in Sources */,
+				63096BEA171D7FB700E56D25 /* ExercisesTableViewController.m in Sources */,
+				63293312171E857C001E2A3A /* MotoriekApp.xcdatamodeld in Sources */,
+				6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */,
+				63AAF2241727C18B00C1D8CA /* Exercise.m in Sources */,
+				63AAF22A1727CE2000C1D8CA /* MotionLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +349,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		63293310171E857C001E2A3A /* MotoriekApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				63293311171E857C001E2A3A /* MotoriekApp.xcdatamodel */,
+			);
+			currentVersion = 63293311171E857C001E2A3A /* MotoriekApp.xcdatamodel */;
+			path = MotoriekApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 63595265171C104B005913DC /* Project object */;
 }

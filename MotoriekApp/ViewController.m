@@ -90,16 +90,11 @@
 }
 
 - (void)logMotionData {
-
-//    NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
-//    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-//    NSNumber *roll = [numberFormatter numberFromString:rollAttitudeLabel.text];
-//    NSNumber *pitch = [numberFormatter numberFromString:rollAttitudeLabel.text];
-//    NSNumber *yaw = [numberFormatter numberFromString:rollAttitudeLabel.text];
     
-    //NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitch, roll, yaw, nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", nil]];
-    
-    NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, [NSDate date], nil] forKeys:[NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", @"timestamp", nil]];
+    NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:
+                                  [NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, XAccelLabel.text, YAccelLabel.text, ZAccelLabel.text, XGyroLabel.text, YGyroLabel.text, ZGyroLabel.text, nil]
+                                                               forKeys:
+                                  [NSArray arrayWithObjects:@"pitch", @"roll", @"yaw", @"accelX", @"accelY", @"accelZ", @"gyroX", @"gyroY", @"gyroZ", nil]];
     [motionLogs addObject:loggedMotion];
 }
 
@@ -175,7 +170,12 @@
             [loggedMotion setPitch:[dict objectForKey:@"pitch"]];
             [loggedMotion setRoll:[dict objectForKey:@"roll"]];
             [loggedMotion setYaw:[dict objectForKey:@"yaw"]];
-            [loggedMotion setTimestamp:[NSDate date]];
+            [loggedMotion setAccelX:[dict objectForKey:@"accelX"]];
+            [loggedMotion setAccelY:[dict objectForKey:@"accelY"]];
+            [loggedMotion setAccelZ:[dict objectForKey:@"accelZ"]];
+            [loggedMotion setGyroX:[dict objectForKey:@"gyroX"]];
+            [loggedMotion setGyroY:[dict objectForKey:@"gyroY"]];
+            [loggedMotion setGyroZ:[dict objectForKey:@"gyroZ"]];
             [loggedMotion setExercise:exercise];
             
             [setWithMotions addObject:loggedMotion];
@@ -192,11 +192,12 @@
 
 - (void) sendMotionLogsToServer {
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:exercise.name, @"name", motionLogs, @"motionlogs", nil];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    
     NSURL *aapje = [NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/api/v1/exercises"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:aapje];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:data];
+    [request setHTTPBody:jsonData];
      
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:nil];
     

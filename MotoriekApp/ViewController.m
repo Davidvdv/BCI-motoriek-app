@@ -108,7 +108,6 @@
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
     [self sendMotionLogsToServer];
-    NSLog(@"%@", motionLogs);
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -191,17 +190,26 @@
 }
 
 - (void) sendMotionLogsToServer {
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:exercise.name, @"name", motionLogs, @"motionlogs", nil];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    NSDictionary *dictToJSON = [[NSDictionary alloc] initWithObjectsAndKeys:exercise.name, @"name", motionLogs, @"motionlogs", nil];
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dictToJSON options:0 error:nil];
     
     NSURL *aapje = [NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/api/v1/exercises"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:aapje];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:jsonData];
+    [request setHTTPBody:JSONData];
      
-    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:nil];
-    
-    NSLog(@"sendMotionLogsToServer %@", dic);
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        NSDictionary *dictWithResponseJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSLog(@"completionHandler %@", [dictWithResponseJSON objectForKey:@"id"]);
+        
+        NSString *idFromAPI = [dictWithResponseJSON objectForKey:@"id"];
+        [exercise setApiNumber:[NSNumber numberWithInt:[idFromAPI intValue]]];
+        
+        NSError *errorSave = nil;
+        if (![[self managedObjectContext] save:&errorSave]) {
+            NSLog(@"Unresolved error %@, %@", errorSave, [errorSave userInfo]);
+        }
+    }];
 }
 
 @end

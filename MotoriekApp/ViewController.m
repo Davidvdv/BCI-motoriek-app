@@ -17,7 +17,7 @@
 
 @implementation ViewController
 
-@synthesize exercise, motionLogs, timer, XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
+@synthesize exercise, exerciseProgressBar, motionLogs, timer, XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
 
 - (CMMotionManager *)motionManager {
 
@@ -89,7 +89,16 @@
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionData) userInfo:nil repeats:YES];
 }
 
+float progressRate = 0.1f;
+
 - (void)logMotionData {
+    float p = [exerciseProgressBar progress];
+    
+    if(p+progressRate > 1) {
+        [self stopMotionDetection:nil];
+    } else {
+        [exerciseProgressBar setProgress:p+progressRate animated:YES];
+    }
     
     NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:
                                   [NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, XAccelLabel.text, YAccelLabel.text, ZAccelLabel.text, XGyroLabel.text, YGyroLabel.text, ZGyroLabel.text, nil]
@@ -99,12 +108,13 @@
 }
 
 - (IBAction)startMotionDetection:(id)sender {
-    
+    [sender setEnabled:NO];
     [self startMotionUpdates];
     [self createExercise];
 }
 
 - (IBAction)stopMotionDetection:(id)sender {
+    [sender setEnabled:NO];
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
     [self sendMotionLogsToServer];
@@ -128,6 +138,11 @@
     thisMotions = [[NSMutableDictionary alloc] init];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [exerciseProgressBar setProgress:0.0f];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -149,7 +164,7 @@
     // Core Data
     exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
     
-    [exercise setName:@"Motion 1"];
+    [exercise setName:[[UIDevice currentDevice] name]];
     [exercise setDatetime:[NSDate date]];
     
     NSError *error = nil;
@@ -200,7 +215,6 @@
      
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         NSDictionary *dictWithResponseJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSLog(@"completionHandler %@", [dictWithResponseJSON objectForKey:@"id"]);
         
         NSString *idFromAPI = [dictWithResponseJSON objectForKey:@"id"];
         [exercise setApiNumber:[NSNumber numberWithInt:[idFromAPI intValue]]];

@@ -30,6 +30,8 @@
 @property (strong, nonatomic) NSMutableArray *motionLogs;
 @property (strong, nonatomic) Exercise *exercise;
 
+@property (weak, nonatomic) IBOutlet UIProgressView *exerciseProgressBar;
+
 - (IBAction)startMotionDetection:(id)sender;
 - (IBAction)stopMotionDetection:(id)sender;
 

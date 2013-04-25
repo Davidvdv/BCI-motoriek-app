@@ -65,6 +65,7 @@
             }
 
             self.movingView.frame = movingRect;
+            self.view.backgroundColor = [UIColor colorWithRed:deviceMotion.attitude.roll*100 green:deviceMotion.attitude.pitch*100 blue:deviceMotion.attitude.yaw*100 alpha:1];
             
             // Accelerometer
             [XAccelLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.userAcceleration.x]];
@@ -96,6 +97,7 @@ float progressRate = 0.05f; // 20 sec
     
     if(p+progressRate > 1) {
         [self stopMotionDetection:nil];
+        [audioplayer play];
     }
     
     NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:
@@ -106,13 +108,11 @@ float progressRate = 0.05f; // 20 sec
 }
 
 - (IBAction)startMotionDetection:(id)sender {
-    [sender setEnabled:NO];
     [self startMotionUpdates];
     [self createExercise];
 }
 
 - (IBAction)stopMotionDetection:(id)sender {
-    [sender setEnabled:NO];
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
     [self addMotionLogs];
@@ -135,6 +135,9 @@ float progressRate = 0.05f; // 20 sec
 	// Do any additional setup after loading the view, typically from a nib.
     motionLogs = [[NSMutableArray alloc] init];
     thisMotions = [[NSMutableDictionary alloc] init];
+    
+    NSURL *soundLink = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"bell" ofType:@"mp3"]];
+    audioplayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundLink error:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -192,7 +195,7 @@ float progressRate = 0.05f; // 20 sec
             
             [setWithMotions addObject:loggedMotion];
         }
-        NSLog(@"addMotionLogs %@", [setWithMotions anyObject]);
+
         [exercise addMotionLog:setWithMotions];
         
         NSError *error = nil;

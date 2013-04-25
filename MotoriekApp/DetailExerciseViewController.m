@@ -40,18 +40,20 @@
     NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [[webViewGraph scrollView] setBounces:NO];
     [webViewGraph loadRequest:webviewRequest];
-    
-    NSSet *setWithMotionLogs = currentExercise.motionLog;
-    
-    for (MotionLog *theMotionLog in setWithMotionLogs) {
-        NSLog(@"log this - %@", theMotionLog);
-    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"modalSegue"]) {
+        MotionLogsViewController *motionLogsViewController = [segue destinationViewController];
+        [motionLogsViewController setMotionsBelongsToExercise:currentExercise.name];
+        [motionLogsViewController setMotionLogs:[currentExercise.motionLog allObjects]];
+    }
 }
 
 @end

@@ -48,7 +48,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             CGRect movingRect = self.movingView.frame;
-
+            
             /*if (movingRect.origin.x + (deviceMotion.attitude.roll *15) >= 0 && movingRect.origin.x <= (self.view.frame.size.width - movingRect.size.width)) {
                 movingRect.origin.x += deviceMotion.attitude.roll*15;
             }
@@ -59,11 +59,17 @@
 
             movingRect.origin.x += deviceMotion.attitude.roll*15;
             movingRect.origin.y += deviceMotion.attitude.pitch*15;
-           
-            if (CGRectContainsRect(self.view.bounds, movingRect)) {
-                self.view.backgroundColor = [UIColor whiteColor];
-            } else {
-                self.view.backgroundColor = [UIColor redColor];
+            
+            if(movingRect.origin.y < 0) {
+                movingRect.origin.y = 0;
+            } else if (movingRect.origin.y > self.view.frame.size.height - movingRect.size.height) {
+                movingRect.origin.y = (self.view.frame.size.height - movingRect.size.height);
+			}
+            
+            if (movingRect.origin.x < 0) {
+                movingRect.origin.x = 0;
+            } else if (movingRect.origin.x > self.view.frame.size.width - movingRect.size.width) {
+                movingRect.origin.x = (self.view.frame.size.width - movingRect.size.width);
             }
 
             self.movingView.frame = movingRect;
@@ -89,15 +95,15 @@
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionData) userInfo:nil repeats:YES];
 }
 
-float progressRate = 0.1f;
+float progressRate = 0.05f; // 20 sec
 
 - (void)logMotionData {
     float p = [exerciseProgressBar progress];
     
+    [exerciseProgressBar setProgress:p+progressRate animated:YES];
+    
     if(p+progressRate > 1) {
         [self stopMotionDetection:nil];
-    } else {
-        [exerciseProgressBar setProgress:p+progressRate animated:YES];
     }
     
     NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:

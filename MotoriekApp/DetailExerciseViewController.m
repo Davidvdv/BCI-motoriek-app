@@ -14,7 +14,7 @@
 
 @implementation DetailExerciseViewController
 
-@synthesize currentExercise, exerciseTitleLabel, exerciseDatetimeLabel, webViewGraph;
+@synthesize currentExercise, exerciseDatetimeLabel, webViewGraph;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,7 +31,6 @@
 	// Do any additional setup after loading the view.
     
     [self setTitle:currentExercise.name];
-    [exerciseTitleLabel setText:currentExercise.name];
     
     NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:currentExercise.datetime dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     [exerciseDatetimeLabel setText:exerciseDatetime];

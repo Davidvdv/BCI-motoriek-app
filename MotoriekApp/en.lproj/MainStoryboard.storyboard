@@ -304,17 +304,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RL2-8M-lMj">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="148" id="NvR-u1-T1V"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="datetime" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOx-Ih-xSw">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="115" id="jkK-zn-ISD"/>
+                                    <constraint firstAttribute="width" constant="156" id="1hg-3Y-uuu"/>
+                                    <constraint firstAttribute="height" constant="21" id="qMO-Dv-nGw"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -330,10 +323,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RL2-8M-lMj" firstAttribute="leading" secondItem="kLk-E4-U07" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="68r-TC-XNO"/>
                             <constraint firstAttribute="trailing" secondItem="gOx-Ih-xSw" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="B8g-gy-PbJ"/>
-                            <constraint firstItem="RQQ-9u-7xe" firstAttribute="top" secondItem="RL2-8M-lMj" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DXb-vl-qbQ"/>
-                            <constraint firstItem="gOx-Ih-xSw" firstAttribute="top" secondItem="RL2-8M-lMj" secondAttribute="top" type="default" id="KFc-kI-Ebr"/>
                             <constraint firstItem="RQQ-9u-7xe" firstAttribute="top" secondItem="gOx-Ih-xSw" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Mpp-jS-BJR"/>
                             <constraint firstItem="RQQ-9u-7xe" firstAttribute="leading" secondItem="kLk-E4-U07" secondAttribute="leading" type="default" id="ef5-E5-tQ9"/>
                             <constraint firstItem="RQQ-9u-7xe" firstAttribute="bottom" secondItem="kLk-E4-U07" secondAttribute="bottom" type="default" id="iX9-t3-FYa"/>
@@ -343,7 +333,6 @@
                     <navigationItem key="navigationItem" id="HYE-pD-Roi"/>
                     <connections>
                         <outlet property="exerciseDatetimeLabel" destination="gOx-Ih-xSw" id="bwG-SN-rNj"/>
-                        <outlet property="exerciseTitleLabel" destination="RL2-8M-lMj" id="gDq-8R-nyr"/>
                         <outlet property="webViewGraph" destination="RQQ-9u-7xe" id="6HO-4i-29K"/>
                     </connections>
                 </viewController>

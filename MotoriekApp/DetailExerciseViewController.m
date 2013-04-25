@@ -14,7 +14,7 @@
 
 @implementation DetailExerciseViewController
 
-@synthesize currentExercise, exerciseTitleLabel, exerciseDatetimeLabel, webViewGraph;
+@synthesize currentExercise, exerciseDatetimeLabel, webViewGraph;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,16 +31,21 @@
 	// Do any additional setup after loading the view.
     
     [self setTitle:currentExercise.name];
-    [exerciseTitleLabel setText:currentExercise.name];
     
     NSString *exerciseDatetime = [NSDateFormatter localizedStringFromDate:currentExercise.datetime dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     [exerciseDatetimeLabel setText:exerciseDatetime];
+    
+    NSString *url = [NSString stringWithFormat:@"http://bci.remcoraaijmakers.nl/inapp.html#%@",currentExercise.apiNumber];
 
-    NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/#88"]];
+    NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [[webViewGraph scrollView] setBounces:NO];
     [webViewGraph loadRequest:webviewRequest];
     
-    NSLog(@"%@", currentExercise.motionLog);
+    NSSet *setWithMotionLogs = currentExercise.motionLog;
+    
+    for (MotionLog *theMotionLog in setWithMotionLogs) {
+        NSLog(@"log this - %@", theMotionLog);
+    }
 }
 
 - (void)didReceiveMemoryWarning

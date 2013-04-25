@@ -17,7 +17,7 @@
 
 @implementation ViewController
 
-@synthesize exercise, motionLogs, timer, XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
+@synthesize exercise, exerciseProgressBar, motionLogs, timer, XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
 
 - (CMMotionManager *)motionManager {
 
@@ -49,21 +49,19 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             CGRect movingRect = self.movingView.frame;
 
-            /*if (movingRect.origin.x + (deviceMotion.attitude.roll *15) >= 0 && movingRect.origin.x <= (self.view.frame.size.width - movingRect.size.width)) {
-                movingRect.origin.x += deviceMotion.attitude.roll*15;
-            }
-            
-            if(movingRect.origin.y + (deviceMotion.attitude.pitch *15) >= 0 && movingRect.origin.y <= (self.view.frame.size.height - movingRect.size.height)) {
-                movingRect.origin.y += deviceMotion.attitude.pitch*15;
-            }*/
-
             movingRect.origin.x += deviceMotion.attitude.roll*15;
             movingRect.origin.y += deviceMotion.attitude.pitch*15;
-           
-            if (CGRectContainsRect(self.view.bounds, movingRect)) {
-                self.view.backgroundColor = [UIColor whiteColor];
-            } else {
-                self.view.backgroundColor = [UIColor redColor];
+            
+            if(movingRect.origin.y < 0) {
+                movingRect.origin.y = 0;
+            } else if (movingRect.origin.y > self.view.frame.size.height - movingRect.size.height) {
+                movingRect.origin.y = (self.view.frame.size.height - movingRect.size.height);
+			}
+            
+            if (movingRect.origin.x < 0) {
+                movingRect.origin.x = 0;
+            } else if (movingRect.origin.x > self.view.frame.size.width - movingRect.size.width) {
+                movingRect.origin.x = (self.view.frame.size.width - movingRect.size.width);
             }
 
             self.movingView.frame = movingRect;
@@ -81,15 +79,24 @@
             // Attitude ration rate
             [rollAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.roll]];
             [pitchAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.pitch]];
-            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];            
+            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];
         });
         
     }];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionData) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionDataByScheduledTime) userInfo:nil repeats:YES];
 }
 
-- (void)logMotionData {
+float progressRate = 0.05f; // 20 sec
+
+- (void)logMotionDataByScheduledTime {
+    float p = [exerciseProgressBar progress];
+    
+    [exerciseProgressBar setProgress:p+progressRate animated:YES];
+    
+    if(p+progressRate > 1) {
+        [self stopMotionDetection:nil];
+    }
     
     NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:
                                   [NSArray arrayWithObjects:pitchAttitudeLabel.text, rollAttitudeLabel.text, yawAttitudeLabel.text, XAccelLabel.text, YAccelLabel.text, ZAccelLabel.text, XGyroLabel.text, YGyroLabel.text, ZGyroLabel.text, nil]
@@ -99,16 +106,17 @@
 }
 
 - (IBAction)startMotionDetection:(id)sender {
-    
+    [sender setEnabled:NO];
     [self startMotionUpdates];
     [self createExercise];
 }
 
 - (IBAction)stopMotionDetection:(id)sender {
+    [sender setEnabled:NO];
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
+    [self addMotionLogs];
     [self sendMotionLogsToServer];
-    NSLog(@"%@", motionLogs);
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -127,6 +135,11 @@
 	// Do any additional setup after loading the view, typically from a nib.
     motionLogs = [[NSMutableArray alloc] init];
     thisMotions = [[NSMutableDictionary alloc] init];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [exerciseProgressBar setProgress:0.0f];
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,7 +163,7 @@
     // Core Data
     exercise = (Exercise *)[NSEntityDescription insertNewObjectForEntityForName:@"Exercise" inManagedObjectContext:[self managedObjectContext]];
     
-    [exercise setName:@"Motion 1"];
+    [exercise setName:[[UIDevice currentDevice] name]];
     [exercise setDatetime:[NSDate date]];
     
     NSError *error = nil;
@@ -163,24 +176,23 @@
     if(exercise != nil) {
         NSMutableSet *setWithMotions = [[NSMutableSet alloc] init];
         
-        MotionLog *loggedMotion = (MotionLog *)[NSEntityDescription insertNewObjectForEntityForName:@"MotionLog" inManagedObjectContext:[self managedObjectContext]];
-        
         for (NSDictionary *dict in motionLogs) {
+            MotionLog *loggedMotion = (MotionLog *)[NSEntityDescription insertNewObjectForEntityForName:@"MotionLog" inManagedObjectContext:[self managedObjectContext]];
             
-            [loggedMotion setPitch:[dict objectForKey:@"pitch"]];
-            [loggedMotion setRoll:[dict objectForKey:@"roll"]];
-            [loggedMotion setYaw:[dict objectForKey:@"yaw"]];
-            [loggedMotion setAccelX:[dict objectForKey:@"accelX"]];
-            [loggedMotion setAccelY:[dict objectForKey:@"accelY"]];
-            [loggedMotion setAccelZ:[dict objectForKey:@"accelZ"]];
-            [loggedMotion setGyroX:[dict objectForKey:@"gyroX"]];
-            [loggedMotion setGyroY:[dict objectForKey:@"gyroY"]];
-            [loggedMotion setGyroZ:[dict objectForKey:@"gyroZ"]];
+            [loggedMotion setPitch:[NSNumber numberWithDouble:[[dict objectForKey:@"pitch"] doubleValue]]];
+            [loggedMotion setRoll:[NSNumber numberWithDouble:[[dict objectForKey:@"roll"] doubleValue]]];
+            [loggedMotion setYaw:[NSNumber numberWithDouble:[[dict objectForKey:@"yaw"] doubleValue]]];
+            [loggedMotion setAccelX:[NSNumber numberWithDouble:[[dict objectForKey:@"accelX"] doubleValue]]];
+            [loggedMotion setAccelY:[NSNumber numberWithDouble:[[dict objectForKey:@"accelY"] doubleValue]]];
+            [loggedMotion setAccelZ:[NSNumber numberWithDouble:[[dict objectForKey:@"accelZ"] doubleValue]]];
+            [loggedMotion setGyroX:[NSNumber numberWithDouble:[[dict objectForKey:@"gyroX"] doubleValue]]];
+            [loggedMotion setGyroY:[NSNumber numberWithDouble:[[dict objectForKey:@"gyroY"] doubleValue]]];
+            [loggedMotion setGyroZ:[NSNumber numberWithDouble:[[dict objectForKey:@"gyroZ"] doubleValue]]];
             [loggedMotion setExercise:exercise];
             
             [setWithMotions addObject:loggedMotion];
         }
-        
+        NSLog(@"addMotionLogs %@", [setWithMotions anyObject]);
         [exercise addMotionLog:setWithMotions];
         
         NSError *error = nil;
@@ -191,17 +203,25 @@
 }
 
 - (void) sendMotionLogsToServer {
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:exercise.name, @"name", motionLogs, @"motionlogs", nil];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    NSDictionary *dictToJSON = [[NSDictionary alloc] initWithObjectsAndKeys:exercise.name, @"name", motionLogs, @"motionlogs", nil];
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dictToJSON options:0 error:nil];
     
     NSURL *aapje = [NSURL URLWithString:@"http://bci.remcoraaijmakers.nl/api/v1/exercises"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:aapje];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:jsonData];
+    [request setHTTPBody:JSONData];
      
-    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:nil];
-    
-    NSLog(@"sendMotionLogsToServer %@", dic);
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        NSDictionary *dictWithResponseJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        NSString *idFromAPI = [dictWithResponseJSON objectForKey:@"id"];
+        [exercise setApiNumber:[NSNumber numberWithInt:[idFromAPI intValue]]];
+        
+        NSError *errorSave = nil;
+        if (![[self managedObjectContext] save:&errorSave]) {
+            NSLog(@"Unresolved error %@, %@", errorSave, [errorSave userInfo]);
+        }
+    }];
 }
 
 @end

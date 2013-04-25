@@ -20,6 +20,6 @@
     </entity>
     <elements>
         <element name="Exercise" positionX="0" positionY="0" width="128" height="103"/>
-        <element name="MotionLog" positionX="214" positionY="135" width="128" height="193"/>
+        <element name="MotionLog" positionX="214" positionY="135" width="128" height="195"/>
     </elements>
 </model>

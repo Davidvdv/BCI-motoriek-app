@@ -114,13 +114,25 @@
         // Delete the row from the data source
         NSManagedObjectContext *context = [self managedObjectContext];
         Exercise *exerciseToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSNumber *apiNumber = exerciseToDelete.apiNumber;
         [context deleteObject:exerciseToDelete];
         
         NSError *error = nil;
         if(![context save:&error]) {
             NSLog(@"Error! %@", error);
+        } else {
+            [self deleteExerciseByAPIWithNumber:apiNumber];
         }
     }
+}
+
+- (void)deleteExerciseByAPIWithNumber:(NSNumber *)apiNumber {
+    NSString *url = [NSString stringWithFormat:@"http://bci.remcoraaijmakers.nl/api/v1/exercises/%@", apiNumber];
+    NSURL *aapje = [NSURL URLWithString:url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:aapje];
+    [request setHTTPMethod:@"DELETE"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:nil];
 }
 
 
@@ -182,7 +194,7 @@
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[self managedObjectContext] sectionNameKeyPath:nil cacheName:@"cacheExercise"];
     
     _fetchedResultsController.delegate = self;
-    
+
     return _fetchedResultsController;
 }
 

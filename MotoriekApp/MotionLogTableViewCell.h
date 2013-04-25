@@ -1,21 +1,14 @@
 //
-//  ViewController.h
+//  MotionLogTableViewCell.h
 //  MotoriekApp
 //
-//  Created by David van de Vondervoort on 15-04-13.
+//  Created by David van de Vondervoort on 25-04-13.
 //  Copyright (c) 2013 David van de Vondervoort. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "Exercise.h"
-#import "MotionLog.h"
-#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController {
-    AVAudioPlayer *audioplayer;
-}
-
-@property (weak, nonatomic) IBOutlet UIView *movingView;
+@interface MotionLogTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *XAccelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *YAccelLabel;
@@ -28,14 +21,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *pitchAttitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rollAttitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yawAttitudeLabel;
-
-@property (strong, nonatomic) NSTimer *timer;
-@property (strong, nonatomic) NSMutableArray *motionLogs;
-@property (strong, nonatomic) Exercise *exercise;
-
-@property (weak, nonatomic) IBOutlet UIProgressView *exerciseProgressBar;
-
-- (IBAction)startMotionDetection:(id)sender;
-- (IBAction)stopMotionDetection:(id)sender;
 
 @end

@@ -25,6 +25,10 @@
 		63AAF2241727C18B00C1D8CA /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF2231727C18B00C1D8CA /* Exercise.m */; };
 		63AAF22D1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF22B1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld */; };
 		63EF442817292535001D0368 /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EF442717292535001D0368 /* MotionLog.m */; };
+		63EF442B17293EAB001D0368 /* MotionLogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EF442A17293EAB001D0368 /* MotionLogsViewController.m */; };
+		63EF442E172941A8001D0368 /* MotionLogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EF442D172941A8001D0368 /* MotionLogTableViewCell.m */; };
+		63EF443317297CBD001D0368 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF443117297CA3001D0368 /* AVFoundation.framework */; };
+		63EF443917297EE3001D0368 /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63EF443817297EE3001D0368 /* bell.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +59,12 @@
 		63AAF22C1727FF3400C1D8CA /* MotoriekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MotoriekApp.xcdatamodel; sourceTree = "<group>"; };
 		63EF442617292535001D0368 /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLog.h; sourceTree = "<group>"; };
 		63EF442717292535001D0368 /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLog.m; sourceTree = "<group>"; };
+		63EF442917293EAB001D0368 /* MotionLogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLogsViewController.h; sourceTree = "<group>"; };
+		63EF442A17293EAB001D0368 /* MotionLogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLogsViewController.m; sourceTree = "<group>"; };
+		63EF442C172941A8001D0368 /* MotionLogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLogTableViewCell.h; sourceTree = "<group>"; };
+		63EF442D172941A8001D0368 /* MotionLogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLogTableViewCell.m; sourceTree = "<group>"; };
+		63EF443117297CA3001D0368 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		63EF443817297EE3001D0368 /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63EF443317297CBD001D0368 /* AVFoundation.framework in Frameworks */,
 				6329330F171E8503001E2A3A /* CoreData.framework in Frameworks */,
 				63096BE7171D305D00E56D25 /* CoreMotion.framework in Frameworks */,
 				63595271171C104B005913DC /* UIKit.framework in Frameworks */,
@@ -104,6 +115,7 @@
 		6359526F171C104B005913DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63EF443117297CA3001D0368 /* AVFoundation.framework */,
 				6329330E171E8503001E2A3A /* CoreData.framework */,
 				63096BE5171D2FCC00E56D25 /* CoreMotion.framework */,
 				63595270171C104B005913DC /* UIKit.framework */,
@@ -125,6 +137,10 @@
 				63096BE9171D7FB700E56D25 /* ExercisesTableViewController.m */,
 				6388A26117267B9800190E2D /* DetailExerciseViewController.h */,
 				6388A26217267B9800190E2D /* DetailExerciseViewController.m */,
+				63EF442C172941A8001D0368 /* MotionLogTableViewCell.h */,
+				63EF442D172941A8001D0368 /* MotionLogTableViewCell.m */,
+				63EF442917293EAB001D0368 /* MotionLogsViewController.h */,
+				63EF442A17293EAB001D0368 /* MotionLogsViewController.m */,
 				63AAF22B1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld */,
 				63293381171E9451001E2A3A /* Models */,
 				63595277171C104B005913DC /* Supporting Files */,
@@ -135,6 +151,7 @@
 		63595277171C104B005913DC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				63EF443817297EE3001D0368 /* bell.mp3 */,
 				63595278171C104B005913DC /* MotoriekApp-Info.plist */,
 				63595279171C104B005913DC /* InfoPlist.strings */,
 				6359527C171C104B005913DC /* main.m */,
@@ -202,6 +219,7 @@
 				63595285171C104B005913DC /* Default@2x.png in Resources */,
 				63595287171C104B005913DC /* Default-568h@2x.png in Resources */,
 				6359528A171C104B005913DC /* MainStoryboard.storyboard in Resources */,
+				63EF443917297EE3001D0368 /* bell.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +238,8 @@
 				63AAF2241727C18B00C1D8CA /* Exercise.m in Sources */,
 				63AAF22D1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld in Sources */,
 				63EF442817292535001D0368 /* MotionLog.m in Sources */,
+				63EF442B17293EAB001D0368 /* MotionLogsViewController.m in Sources */,
+				63EF442E172941A8001D0368 /* MotionLogTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

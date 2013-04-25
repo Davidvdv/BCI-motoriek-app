@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Exercise.h"
+#import "MotionLogsViewController.h"
 
 @interface DetailExerciseViewController : UIViewController
 

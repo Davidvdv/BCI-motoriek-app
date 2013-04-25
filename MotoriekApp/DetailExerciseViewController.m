@@ -40,12 +40,6 @@
     NSURLRequest *webviewRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [[webViewGraph scrollView] setBounces:NO];
     [webViewGraph loadRequest:webviewRequest];
-    
-    NSSet *setWithMotionLogs = currentExercise.motionLog;
-    
-    for (MotionLog *theMotionLog in setWithMotionLogs) {
-        NSLog(@"log this - %@", theMotionLog);
-    }
 }
 
 - (void)didReceiveMemoryWarning

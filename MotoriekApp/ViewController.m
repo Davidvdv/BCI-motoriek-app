@@ -97,6 +97,7 @@ float progressRate = 0.05f; // 20 sec
     
     if(p+progressRate > 1) {
         [self stopMotionDetection:nil];
+        [audioplayer play];
     }
     
     NSDictionary *loggedMotion = [[NSDictionary alloc] initWithObjects:
@@ -134,6 +135,9 @@ float progressRate = 0.05f; // 20 sec
 	// Do any additional setup after loading the view, typically from a nib.
     motionLogs = [[NSMutableArray alloc] init];
     thisMotions = [[NSMutableDictionary alloc] init];
+    
+    NSURL *soundLink = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"bell" ofType:@"mp3"]];
+    audioplayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundLink error:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

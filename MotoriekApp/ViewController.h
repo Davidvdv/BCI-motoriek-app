@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Exercise.h"
 #import "MotionLog.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    AVAudioPlayer *audioplayer;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *movingView;
 

@@ -65,6 +65,7 @@
             }
 
             self.movingView.frame = movingRect;
+            self.view.backgroundColor = [UIColor colorWithRed:deviceMotion.attitude.roll*100 green:deviceMotion.attitude.pitch*100 blue:deviceMotion.attitude.yaw*100 alpha:1];
             
             // Accelerometer
             [XAccelLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.userAcceleration.x]];
@@ -106,13 +107,11 @@ float progressRate = 0.05f; // 20 sec
 }
 
 - (IBAction)startMotionDetection:(id)sender {
-    [sender setEnabled:NO];
     [self startMotionUpdates];
     [self createExercise];
 }
 
 - (IBAction)stopMotionDetection:(id)sender {
-    [sender setEnabled:NO];
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
     [self addMotionLogs];
@@ -192,7 +191,7 @@ float progressRate = 0.05f; // 20 sec
             
             [setWithMotions addObject:loggedMotion];
         }
-        NSLog(@"addMotionLogs %@", [setWithMotions anyObject]);
+
         [exercise addMotionLog:setWithMotions];
         
         NSError *error = nil;

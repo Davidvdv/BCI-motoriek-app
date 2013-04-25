@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ki-yZh">
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="aX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtd-qe-ovj">
                                 <constraints>
@@ -311,11 +311,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LV0-il-O2i">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MotionLogCell" rowHeight="90" id="2Pr-fM-Ote" customClass="MotionLogTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="MotionLogCell" rowHeight="90" id="2Pr-fM-Ote" customClass="MotionLogTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="aX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kqk-z5-AcC">
@@ -644,59 +644,6 @@
             <point key="canvasLocation" x="781" y="336"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="DetailExerciseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailExerciseViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="exerciseDatetimeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="webViewGraph" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="ExercisesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExercisesTableViewController.h"/>
-        </class>
-        <class className="MotionLogTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MotionLogTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="XAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="XGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="YAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="YGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ZAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ZGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="pitchAttitudeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rollAttitudeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="yawAttitudeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MotionLogsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MotionLogsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismiss:"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="startMotionDetection:"/>
-                <relationship kind="action" name="stopMotionDetection:"/>
-                <relationship kind="outlet" name="XAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="XGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="YAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="YGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ZAccelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ZGyroLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="exerciseProgressBar" candidateClass="UIProgressView"/>
-                <relationship kind="outlet" name="movingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pitchAttitudeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rollAttitudeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="yawAttitudeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

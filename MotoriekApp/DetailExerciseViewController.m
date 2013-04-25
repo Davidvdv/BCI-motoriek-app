@@ -41,7 +41,11 @@
     [[webViewGraph scrollView] setBounces:NO];
     [webViewGraph loadRequest:webviewRequest];
     
-    NSLog(@"%@", currentExercise.motionLog);
+    NSSet *setWithMotionLogs = currentExercise.motionLog;
+    
+    for (MotionLog *theMotionLog in setWithMotionLogs) {
+        NSLog(@"log this - %@", theMotionLog);
+    }
 }
 
 - (void)didReceiveMemoryWarning

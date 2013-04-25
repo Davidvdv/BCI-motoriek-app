@@ -48,14 +48,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             CGRect movingRect = self.movingView.frame;
-            
-            /*if (movingRect.origin.x + (deviceMotion.attitude.roll *15) >= 0 && movingRect.origin.x <= (self.view.frame.size.width - movingRect.size.width)) {
-                movingRect.origin.x += deviceMotion.attitude.roll*15;
-            }
-            
-            if(movingRect.origin.y + (deviceMotion.attitude.pitch *15) >= 0 && movingRect.origin.y <= (self.view.frame.size.height - movingRect.size.height)) {
-                movingRect.origin.y += deviceMotion.attitude.pitch*15;
-            }*/
 
             movingRect.origin.x += deviceMotion.attitude.roll*15;
             movingRect.origin.y += deviceMotion.attitude.pitch*15;
@@ -87,17 +79,17 @@
             // Attitude ration rate
             [rollAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.roll]];
             [pitchAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.pitch]];
-            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];            
+            [yawAttitudeLabel setText:[NSString stringWithFormat:@"%f", deviceMotion.attitude.yaw]];
         });
         
     }];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionData) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(logMotionDataByScheduledTime) userInfo:nil repeats:YES];
 }
 
 float progressRate = 0.05f; // 20 sec
 
-- (void)logMotionData {
+- (void)logMotionDataByScheduledTime {
     float p = [exerciseProgressBar progress];
     
     [exerciseProgressBar setProgress:p+progressRate animated:YES];
@@ -123,6 +115,7 @@ float progressRate = 0.05f; // 20 sec
     [sender setEnabled:NO];
     [[self motionManager] stopDeviceMotionUpdates];
     [timer invalidate];
+    [self addMotionLogs];
     [self sendMotionLogsToServer];
 }
 
@@ -183,24 +176,23 @@ float progressRate = 0.05f; // 20 sec
     if(exercise != nil) {
         NSMutableSet *setWithMotions = [[NSMutableSet alloc] init];
         
-        MotionLog *loggedMotion = (MotionLog *)[NSEntityDescription insertNewObjectForEntityForName:@"MotionLog" inManagedObjectContext:[self managedObjectContext]];
-        
         for (NSDictionary *dict in motionLogs) {
+            MotionLog *loggedMotion = (MotionLog *)[NSEntityDescription insertNewObjectForEntityForName:@"MotionLog" inManagedObjectContext:[self managedObjectContext]];
             
-            [loggedMotion setPitch:[dict objectForKey:@"pitch"]];
-            [loggedMotion setRoll:[dict objectForKey:@"roll"]];
-            [loggedMotion setYaw:[dict objectForKey:@"yaw"]];
-            [loggedMotion setAccelX:[dict objectForKey:@"accelX"]];
-            [loggedMotion setAccelY:[dict objectForKey:@"accelY"]];
-            [loggedMotion setAccelZ:[dict objectForKey:@"accelZ"]];
-            [loggedMotion setGyroX:[dict objectForKey:@"gyroX"]];
-            [loggedMotion setGyroY:[dict objectForKey:@"gyroY"]];
-            [loggedMotion setGyroZ:[dict objectForKey:@"gyroZ"]];
+            [loggedMotion setPitch:[NSNumber numberWithDouble:[[dict objectForKey:@"pitch"] doubleValue]]];
+            [loggedMotion setRoll:[NSNumber numberWithDouble:[[dict objectForKey:@"roll"] doubleValue]]];
+            [loggedMotion setYaw:[NSNumber numberWithDouble:[[dict objectForKey:@"yaw"] doubleValue]]];
+            [loggedMotion setAccelX:[NSNumber numberWithDouble:[[dict objectForKey:@"accelX"] doubleValue]]];
+            [loggedMotion setAccelY:[NSNumber numberWithDouble:[[dict objectForKey:@"accelY"] doubleValue]]];
+            [loggedMotion setAccelZ:[NSNumber numberWithDouble:[[dict objectForKey:@"accelZ"] doubleValue]]];
+            [loggedMotion setGyroX:[NSNumber numberWithDouble:[[dict objectForKey:@"gyroX"] doubleValue]]];
+            [loggedMotion setGyroY:[NSNumber numberWithDouble:[[dict objectForKey:@"gyroY"] doubleValue]]];
+            [loggedMotion setGyroZ:[NSNumber numberWithDouble:[[dict objectForKey:@"gyroZ"] doubleValue]]];
             [loggedMotion setExercise:exercise];
             
             [setWithMotions addObject:loggedMotion];
         }
-        
+        NSLog(@"addMotionLogs %@", [setWithMotions anyObject]);
         [exercise addMotionLog:setWithMotions];
         
         NSError *error = nil;

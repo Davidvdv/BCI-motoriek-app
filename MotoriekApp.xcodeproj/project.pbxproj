@@ -23,8 +23,8 @@
 		6359528D171C104B005913DC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359528C171C104B005913DC /* ViewController.m */; };
 		6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388A26217267B9800190E2D /* DetailExerciseViewController.m */; };
 		63AAF2241727C18B00C1D8CA /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF2231727C18B00C1D8CA /* Exercise.m */; };
-		63AAF22A1727CE2000C1D8CA /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF2291727CE2000C1D8CA /* MotionLog.m */; };
 		63AAF22D1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63AAF22B1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld */; };
+		63EF442817292535001D0368 /* MotionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EF442717292535001D0368 /* MotionLog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,9 +52,9 @@
 		6388A26217267B9800190E2D /* DetailExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailExerciseViewController.m; sourceTree = "<group>"; };
 		63AAF2221727C18B00C1D8CA /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
 		63AAF2231727C18B00C1D8CA /* Exercise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exercise.m; sourceTree = "<group>"; };
-		63AAF2281727CE2000C1D8CA /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLog.h; sourceTree = "<group>"; };
-		63AAF2291727CE2000C1D8CA /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLog.m; sourceTree = "<group>"; };
 		63AAF22C1727FF3400C1D8CA /* MotoriekApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MotoriekApp.xcdatamodel; sourceTree = "<group>"; };
+		63EF442617292535001D0368 /* MotionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionLog.h; sourceTree = "<group>"; };
+		63EF442717292535001D0368 /* MotionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionLog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +76,8 @@
 		63293381171E9451001E2A3A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				63AAF2281727CE2000C1D8CA /* MotionLog.h */,
-				63AAF2291727CE2000C1D8CA /* MotionLog.m */,
+				63EF442617292535001D0368 /* MotionLog.h */,
+				63EF442717292535001D0368 /* MotionLog.m */,
 				63AAF2221727C18B00C1D8CA /* Exercise.h */,
 				63AAF2231727C18B00C1D8CA /* Exercise.m */,
 			);
@@ -218,8 +218,8 @@
 				63096BEA171D7FB700E56D25 /* ExercisesTableViewController.m in Sources */,
 				6388A26317267B9800190E2D /* DetailExerciseViewController.m in Sources */,
 				63AAF2241727C18B00C1D8CA /* Exercise.m in Sources */,
-				63AAF22A1727CE2000C1D8CA /* MotionLog.m in Sources */,
 				63AAF22D1727FF3400C1D8CA /* MotoriekApp.xcdatamodeld in Sources */,
+				63EF442817292535001D0368 /* MotionLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

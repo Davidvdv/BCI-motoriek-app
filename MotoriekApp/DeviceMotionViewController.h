@@ -11,7 +11,7 @@
 #import "MotionLog.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController {
+@interface DeviceMotionViewController : UIViewController {
     AVAudioPlayer *audioplayer;
 }
 

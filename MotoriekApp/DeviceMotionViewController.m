@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 David van de Vondervoort. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "DeviceMotionViewController.h"
 #import <CoreMotion/CoreMotion.h>
 
-@interface ViewController () {
+@interface DeviceMotionViewController () {
     NSMutableDictionary *thisMotions;
 }
 
 @end
 
-@implementation ViewController
+@implementation DeviceMotionViewController
 
 @synthesize exercise, exerciseProgressBar, motionLogs, timer, XAccelLabel, YAccelLabel, ZAccelLabel, XGyroLabel, YGyroLabel, ZGyroLabel, rollAttitudeLabel, pitchAttitudeLabel, yawAttitudeLabel;
 
